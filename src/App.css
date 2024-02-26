@@ -1,38 +1,246 @@
-.App {
-  text-align: center;
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    /*background-color: #474e4f;*/
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    display: block;
+    min-height: 100%;
+    min-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.legend {
+    display: block;
+    /*position: absolute;*/
+    border: 1px solid red;
+    padding: 10px;
+    /*line-height: 10px;*/
+    top: 0;
+    background-color: white;
+    /*height: 10px;*/
+    font-size: 12px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+.legend span {
+    margin-right: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.players {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    align-items: stretch;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.player {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.player1 {
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(121, 9, 9, 1) 17%, rgba(255, 0, 106, 1) 100%);
+}
+
+.player2 {
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 17%, rgba(0, 101, 255, 1) 100%);
+}
+
+.extension {
+    display: inline-block;
+    color: white;
+    padding: 10px;
+}
+
+.extension-true {
+    background-color: green;
+    box-shadow: 0px 0px 10px #defdff;
+
+}
+
+.extension-false {
+    background-color: #783f3f;
+}
+
+.extension-requested-true {
+    border: 2px dashed yellow;
+}
+
+.score {
+    font-size: 30vh;
+    margin: 0;
+    padding: 0;
+}
+
+.timer-wrapper {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-around;*/
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+    border: 1px solid black;
+}
+
+.timer {
+    height: 100%;
+    font-size: 50px;
+    margin: 0;
+    padding: 0;
+    /*background-color: #e87575;*/
+    box-shadow: inset 0px 0px 29px 4px rgba(71, 189, 64, 1);
+}
+
+.info-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 100%;
+
+    /*margin-top: 20px;*/
+    height: 100vh;
+    /*border: 1px solid black;*/
+}
+
+.player-info .name {
+    font-size: 5vh;
+}
+
+.arrow-wrapper {
+    height: 0;
+}
+
+.arrow {
+    display: block;
+    position: relative;
+    width: 0px;
+    height: 0px;
+    top: 0;
+    content: '.';
+    z-index: 10;
+    margin-left: calc(50% - 15px);
+}
+
+.arrow-top {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid white;
+    margin-top: -1px;
+}
+
+.arrow-bottom {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid white;
+    margin-top: -19px;
+}
+
+
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Apply a background color and some padding to the whole form */
+form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style labels for better readability */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Style input fields */
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="checkbox"] {
+    margin-top: 10px;
+    width: 30px;
+}
+
+/* Style submit button */
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Hover effect on the button */
+button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    form {
+        max-width: 100%;
+    }
+}
+
+
+.start-game {
+    display: block;
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 1px solid #7c7676;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #7c7676;
+}
+
+.race-to-info {
+    display: block;
+    position: absolute;
+    background-color: #55db55;
+    padding: 10px;
+    border: 1px solid yellow;
+    margin-top: 10%;
+}
+
+.timer-clock{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-size: 60px;
 }
