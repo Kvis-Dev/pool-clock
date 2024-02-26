@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {BrowserRouter as Router, Link, Route, Routes,} from "react-router-dom";
+import {HashRouter, Link, Route, Routes,} from "react-router-dom";
 import {useEventListener} from "./hooks/hooks";
 import beep from './audio/beep.mp3'
 import buzz from './audio/buzz.mp3'
@@ -271,12 +271,12 @@ function GamePool() {
 
 function App() {
     return (<>
-            <Router>
+            <HashRouter>
                 <Routes>
                     <Route path="/pool" element={<GamePool/>}/>
                     <Route path="/" element={<Settings/>}/>
                 </Routes>
-            </Router>
+            </HashRouter>
             <ToastContainer position="bottom-right" autoClose={3000}/>
         </>
     );
