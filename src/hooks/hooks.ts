@@ -1,7 +1,10 @@
-import {useEffect, useRef} from "react";
-import React, {useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {translations} from "../translation";
+import {strings as enStrings} from "../translation/en";
+import {KeyValue} from "../translation/types";
 
-export function useEventListener(eventName: string, handler: ({key}: { key: any; }) => void, element = window) {
+
+export function useEventListener(eventName: string, handler: (event: Event) => void, element = window) {
     const savedHandler = useRef();
     useEffect(() => {
         // @ts-ignore
@@ -23,27 +26,31 @@ export function useEventListener(eventName: string, handler: ({key}: { key: any;
     );
 }
 
+type LngKeys = keyof typeof enStrings
 
-export const useAudio = (url: string) => {
-    const [audio] = useState(new Audio(url));
-    const [playing, setPlaying] = useState(false);
+type LanguageType = {
+    [key in LngKeys]: string
+}
+export const useLanguage = (lng: 'en' | 'ua'): LanguageType => {
+    let [lngStrings, setLngStrings] = useState<KeyValue>({})
+    let strings = {...translations["en"]}
 
-    const toggle = (status: boolean) => setPlaying(status);
+    useMemo(
+        () => {
+            strings = {...translations["en"]}
+            for (let k in translations[lng]) {
+                // @ts-ignore
+                if (translations[lng][k]) {
+                    // @ts-ignore
+                    strings[k] = translations[lng][k]
+                }
+            }
 
-    useEffect(() => {
-            playing ? audio.play() : audio.pause();
+            setLngStrings(strings)
+            lngStrings = strings
         },
-        [playing]
+        [lng]
     );
 
-    useEffect(() => {
-        audio.addEventListener('ended', () => setPlaying(false));
-        return () => {
-            audio.removeEventListener('ended', () => setPlaying(false));
-        };
-    }, []);
-
-    return [playing, toggle];
-};
-
-
+    return lngStrings as LanguageType;
+}

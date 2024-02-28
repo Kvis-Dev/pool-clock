@@ -1,8 +1,6 @@
 html, body, #root {
     margin: 0;
     padding: 0;
-    /*background-color: #474e4f;*/
-    overflow: hidden;
     height: 100%;
     width: 100%;
     display: block;
@@ -188,19 +186,19 @@ input[type="checkbox"] {
 }
 
 /* Style submit button */
-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+/*button {*/
+/*    background-color: #4caf50;*/
+/*    color: #fff;*/
+/*    padding: 10px;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*}*/
 
-/* Hover effect on the button */
-button:hover {
-    background-color: #45a049;
-}
+/*!* Hover effect on the button *!*/
+/*button:hover {*/
+/*    background-color: #45a049;*/
+/*}*/
 
 /* Responsive design for smaller screens */
 @media (max-width: 600px) {
@@ -218,15 +216,15 @@ button:hover {
 .button {
     display: inline-block;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 0px 5px 0px 5px;
     border: 1px solid #7c7676;
     background-color: #f4f4f4;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     color: #000;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px #7c7676;
+    border-radius: 2px;
+    box-shadow: 0px 0px 5px #7c7676;
 }
 
 .race-to-info {
@@ -238,9 +236,17 @@ button:hover {
     margin-top: 10%;
 }
 
-.timer-clock{
+.timer-clock {
     position: absolute;
     text-align: center;
     width: 100%;
-    font-size: 60px;
+    font-size: 10vh;
+}
+
+.timer-clock-running-true {
+    color: black;
+}
+
+.timer-clock-running-false {
+    color: #9b9b9b;
 }

@@ -1,49 +1,15 @@
 import React, {useRef, useState} from "react";
 import {Link} from "react-router-dom";
+import {useLanguage} from "./hooks/hooks";
+import {loadSettings, saveSettings} from "./settings";
 
 
-interface Settings {
-    timeForShot: number
-    firstTimeForShot: number,
-    automaticExtension: boolean,
-    player1Name: string,
-    player2Name: string,
-    raceTo: number
-}
-
-export function loadSettings(): Settings {
-    const localStorageSettings = localStorage.getItem('settings')
-    const defaults = {
-        timeForShot: 30,
-        firstTimeForShot: 60,
-        automaticExtension: false,
-        player1Name: 'Player 1',
-        player2Name: 'Player 2',
-        raceTo: 5
-    }
-    if (!localStorageSettings) {
-        return defaults
-    }
-    const settings = JSON.parse(localStorageSettings)
-
-    for (const key in defaults) {
-        if (settings[key] === undefined || settings[key] === '') {
-            // @ts-ignore
-            settings[key] = defaults[key]
-        }
-    }
-
-    return settings
-}
-
-export function saveSettings(settings: Settings) {
-    localStorage.setItem('settings', JSON.stringify(settings));
-}
-
-export function Settings() {
+export function InitScreen() {
     const settings = loadSettings()
 
     const [formState, setFormState] = useState(settings)
+    const language = useLanguage(settings.language)
+
     const formRef = useRef(null);
 
     const extractForm = (form: HTMLFormElement) => {
@@ -53,6 +19,7 @@ export function Settings() {
         const player1Name = form.player1Name.value
         const player2Name = form.player2Name.value
         const raceTo = form.raceTo.value
+        const language = form.language.value
 
         return {
             timeForShot,
@@ -61,10 +28,11 @@ export function Settings() {
             player1Name,
             player2Name,
             raceTo,
+            language,
         }
     }
 
-    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         if (!formRef.current) {
             return
         }
@@ -74,41 +42,48 @@ export function Settings() {
     }
 
     return (
-        <>
+        <div>
             <div>
-                <h1>Settings</h1>
+                <h1>
+                    {language.settings}
+                </h1>
             </div>
             <form ref={formRef}>
-                <label> Time for shot </label>
+                <label> {language.timeForShot} </label>
                 <input onChange={onChangeHandler} type="number" min={10} max={600} value={settings.timeForShot}
                        name="timeForShot"/>
 
-                <label> Time for first shot </label>
+                <label> {language.firstTimeForShot} </label>
                 <input onChange={onChangeHandler} type="number" min={10} max={600} value={settings.firstTimeForShot}
                        name="firstTimeForShot"/>
 
-                <label> Automatic extension
+                <label>
+                    {language.automaticExtension}
                     <input onChange={onChangeHandler} type="checkbox" name="automaticExtension"
                            checked={settings.automaticExtension}/>
                 </label>
 
-                <label> Player 1 Name </label>
+                <label> {language.player1Name} </label>
                 <input onChange={onChangeHandler} type="text" value={settings.player1Name}
                        name="player1Name"/>
 
-                <label> Player 2 Name </label>
+                <label> {language.player2Name} </label>
                 <input onChange={onChangeHandler} type="text" value={settings.player2Name}
                        name="player2Name"/>
 
-                <label> Race to </label>
+                <label> {language.raceTo} </label>
                 <input onChange={onChangeHandler} type="number" min={1} max={100} value={settings.raceTo}
-                          name="raceTo"/>
+                       name="raceTo"/>
 
+                <label> {language.language} </label>
+                <select value={settings.language} name="language" onChange={onChangeHandler}>
+                    <option value="en"> En</option>
+                    <option value="ua"> Ua</option>
+                </select>
             </form>
             <div className="start-game">
-                <Link className="button" to={'/pool'}>Let's go!</Link>
+                <Link className="button" to={'/pool'}>{language.go}</Link>
             </div>
-
-        </>
+        </div>
     )
 }
