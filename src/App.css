@@ -185,21 +185,6 @@ input[type="checkbox"] {
     width: 30px;
 }
 
-/* Style submit button */
-/*button {*/
-/*    background-color: #4caf50;*/
-/*    color: #fff;*/
-/*    padding: 10px;*/
-/*    border: none;*/
-/*    border-radius: 4px;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*!* Hover effect on the button *!*/
-/*button:hover {*/
-/*    background-color: #45a049;*/
-/*}*/
-
 /* Responsive design for smaller screens */
 @media (max-width: 600px) {
     form {
@@ -209,6 +194,7 @@ input[type="checkbox"] {
 
 
 .start-game {
+    padding-top: 10px;
     display: block;
     text-align: center;
 }
@@ -249,4 +235,22 @@ input[type="checkbox"] {
 
 .timer-clock-running-false {
     color: #9b9b9b;
+}
+
+.header{
+    text-align: center;
+    padding: 20px;
+}
+
+.language-toggle{
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
 }

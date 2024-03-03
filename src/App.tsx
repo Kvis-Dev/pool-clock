@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 import {HashRouter, Route, Routes,} from "react-router-dom";
 import {ToastContainer} from 'react-toastify';
-import {InitScreen} from "./InitScreen";
+import {InitScreen} from "./components/InitScreen";
 import {GamePool} from "./components/GamePool";
 
 

@@ -1,4 +1,5 @@
 import {determineDefaultLng} from "./helpers";
+import {useState} from "react";
 
 export interface Settings {
     timeForShot: number
@@ -37,6 +38,13 @@ export function loadSettings(): Settings {
     return settings
 }
 
-export function saveSettings(settings: Settings) {
-    localStorage.setItem('settings', JSON.stringify(settings));
+
+export function useSettings(): [Settings, (settings: Settings) => void] {
+    const settings = loadSettings()
+    const [settingsState, setSettingsState] = useState<Settings>(settings)
+    const saveSettings = (newSettings: Settings) => {
+        setSettingsState({...newSettings})
+        localStorage.setItem('settings', JSON.stringify(newSettings));
+    }
+    return [settingsState, saveSettings]
 }
