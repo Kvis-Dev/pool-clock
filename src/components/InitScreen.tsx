@@ -50,6 +50,7 @@ export function InitScreen() {
         const form = event.currentTarget
         const newSettings = extractForm(form)
         saveSettings({...settings, ...newSettings})
+        localStorage.removeItem("score")
         navigate('/pool')
     }
 

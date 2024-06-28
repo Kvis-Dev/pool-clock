@@ -15,6 +15,8 @@ export function GamePool() {
     const settings = loadSettings()
     const language = useLanguage(settings.language)
 
+    const restoredScore = localStorage.getItem("score")
+
     const defaultPlayersState = [{
         'name': settings.player1Name,
         'extension': true,
@@ -26,6 +28,11 @@ export function GamePool() {
         'extensionRequested': false,
         'score': 0,
     }]
+    if (restoredScore) {
+        const [score1, score2] = restoredScore.split(",")
+        defaultPlayersState[0].score = parseInt(score1)
+        defaultPlayersState[1].score = parseInt(score2)
+    }
 
     const [playSoundBuzz] = useSound(buzz)
     const [playSoundBeep] = useSound(beep)
@@ -35,6 +42,14 @@ export function GamePool() {
     const [timeIsRunning, setTimeIsRunning] = useState(false)
     const [player, setPlayer] = useState(0)
     const [players, setPlayers] = useState(defaultPlayersState)
+
+    const rememberScore = (players: (typeof defaultPlayersState)) => {
+        localStorage.setItem("score", [players[0].score, players[1].score].join(","));
+    }
+
+    useEffect(() => {
+        rememberScore(players)
+    }, [players[0].score, players[1].score])
 
     const isTouchDevice = isThisTouchDevice()
     let interval: any = null
@@ -80,11 +95,12 @@ export function GamePool() {
     }
     const nextPlayerAction = () => {
         if (!timeIsRunning) {
+            removeExtensionRequest()
             setPlayer((player) => {
                 return player === 0 ? 1 : 0
             })
         } else {
-            toast.info(language.cantChangePlayer);
+            toast.error(language.cantChangePlayer);
         }
     }
     const extensionAction = () => {
@@ -93,8 +109,9 @@ export function GamePool() {
                 players[player].extensionRequested = true
                 return [...players]
             })
+            toast.info(language.extensionApplied);
         } else {
-            toast.info(language.extensionUnavailable);
+            toast.error(language.extensionUnavailable);
         }
     }
     const arrowUpAction = () => {
@@ -138,28 +155,29 @@ export function GamePool() {
         event.stopPropagation()
         event.preventDefault()
 
-        let key = (event as KeyboardEvent).key
+        let key = (event as KeyboardEvent).code
+
         switch (key) {
-            case ' ':
+            case 'Space':
                 defaultStartStopAction()
                 break
-            case 'n':
+            case 'KeyN':
                 nextPlayerAction()
                 break
-            case 's':
+            case 'KeyS':
                 setTimeIsRunning(true)
                 break
-            case '1':
+            case 'Digit1':
                 firstShotAction()
                 break
-            case '2':
+            case 'Digit2':
                 setIsPlayingFirsShot(false)
                 setTimeLeft(settings.timeForShot)
                 break
-            case 'e':
+            case 'KeyE':
                 extensionAction()
                 break
-            case 'k':
+            case 'KeyK':
                 endOfRackAction()
                 break
             case 'ArrowRight':

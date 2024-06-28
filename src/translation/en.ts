@@ -24,6 +24,7 @@ export const strings  = {
     endOfRackKey: 'K - end of rack',
     cantChangePlayer: 'You can\'t change current player while time is running',
     extensionUnavailable: 'Extension unavailable!',
+    extensionApplied: 'Extension applied',
     youCantChangeScore: 'You can\'t change score while time is running!',
     raceToNum: 'Race to {raceTo}'
 }
