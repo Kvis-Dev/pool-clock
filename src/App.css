@@ -80,7 +80,7 @@ body {
 }
 
 .score {
-    font-size: min(50vw, 35vh);
+    font-size: min(30vw, 35vh);
     margin: 0;
     padding: 0;
 }
